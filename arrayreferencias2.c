@@ -26,7 +26,7 @@ int linhasArquivo(FILE *fp){
             linha++;
         }
     }
-    fsetpos(fp, &position); /*devolvendo posiÁ„o do pointer do comeco dos dados para comecar armazenamento */
+    fsetpos(fp, &position); /*devolvendo posi√ß√£o do pointer do comeco dos dados para comecar armazenamento */
     return linha;
 }
 
@@ -52,7 +52,7 @@ int main(){
     if (fp2 == NULL) return -1;
     if (fp3 == NULL) return -1;
     if (fp4 == NULL) return -1;
-    /*arquivo 1 = referencia de f·brica (silÌcio ou MCT)*/
+    /*arquivo 1 = referencia de f√°brica (sil√≠cio ou MCT)*/
     pontos1 = linhasArquivo(fp);
     abs1 = (double*)malloc(sizeof(double)*pontos1);
     ord1 = (double*)malloc(sizeof(double)*pontos1);
@@ -61,7 +61,7 @@ int main(){
         abs1[i] = atof(xstring);  /*atof eh uma funcao da stdlib que transforma string em double*/
         ord1[i] = atof(ystring);
     }
-    /*arquivo 2 = calibraÁ„o (silicio ou MCT)*/
+    /*arquivo 2 = calibra√ß√£o (silicio ou MCT)*/
     pontos2 = linhasArquivo(fp2);
     abs2 = (double*)malloc(sizeof(double)*pontos2);
     ord2 = (double*)malloc(sizeof(double)*pontos2);
@@ -73,7 +73,7 @@ int main(){
     /*arquivo 3 = nossa mostra*/
     pontos3 = linhasArquivo(fp3);
     abs3 = (double*)malloc(sizeof(double)*pontos2);
-    ord3 = (double*)malloc(sizeof(double)*pontos2);  /*colocou-se pontos2 pq a referencia que È limitadora */
+    ord3 = (double*)malloc(sizeof(double)*pontos2);  /*colocou-se pontos2 pq a referencia que √© limitadora */
     for(i = 0; i < pontos2-1; i++){
         fscanf(fp3, "%s %s", xstring, ystring);
         abs3[i] = atof(xstring);  /*atof eh uma funcao da stdlib que transforma string em double*/
@@ -84,7 +84,8 @@ int main(){
     absinterpolado = (double*)malloc(sizeof(double)*pontos2);
     for(i = 0; i < pontos2-1; i++){
         indice = menorque(ord2[i], ord1);
-        absinterpolado[i] = (ord2[i]*(abs1[indice + 1] - abs1[indice]) + abs1[indice]*ord1[indice + 1] - ord1[indice]*abs1[indice+1])/(ord1[indice + 1] - ord1[indice]);
+        absinterpolado[i] = (ord2[i]*(abs1[indice + 1] - abs1[indice]) + abs1[indice]*ord1[indice + 1] - ord1[indice]*abs1[indice+1])
+            /(ord1[indice + 1] - ord1[indice]);
         printf("%f %f %d\n", ord2[54], ord1[174], menorque(ord2[54], ord1));
         Potencia[i] = abs2[i]/absinterpolado[i];
     }
@@ -114,7 +115,7 @@ return 0;
 
 /*Janela pop-up de avisos:
 
-Para a calibraÁ„o do MCT coloque valores de comprimento de onda(nm) entre 2031 e 15208.
-Para a calibraÁ„o do SÌlicio coloque valores de comprimento de onda(nm) entre 204 e 1099.
+Para a calibra√ß√£o do MCT coloque valores de comprimento de onda(nm) entre 2031 e 15208.
+Para a calibra√ß√£o do S√≠licio coloque valores de comprimento de onda(nm) entre 204 e 1099.
 
-Para medir sua mostra comece e termine no comprimento de onda IGUAL ao da calibraÁ„o e mantenha o MESMO PASSO!*/
+Para medir sua mostra comece e termine no comprimento de onda IGUAL ao da calibra√ß√£o e mantenha o MESMO PASSO!*/
